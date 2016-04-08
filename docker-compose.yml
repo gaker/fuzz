@@ -1,0 +1,30 @@
+
+fuzz:
+  build: ./fuzz
+  ports:
+    - "8000:8000"
+  links:
+    - influxdb
+  volumes:
+      - ./fuzz/:/app/
+  environment:
+    INFLUX_DB_NAME: 'monitor'
+    AUTH_TOKEN: abc123
+
+
+influxdb:
+  image: tutum/influxdb
+  ports:
+    - "8083:8083"
+    - "8086:8086"
+  environment:
+    PRE_CREATE_DB: snmp
+
+
+grafana:
+  image: grafana/grafana
+  links:
+    - influxdb
+  ports:
+    - "3000:3000"
+
