@@ -1,12 +1,12 @@
 
 fuzz:
-  build: ./fuzz
+  build: .
   ports:
     - "8000:8000"
   links:
     - influxdb
   volumes:
-      - ./fuzz/:/app/
+      - ./:/app/
   environment:
     INFLUX_DB_NAME: 'monitor'
     AUTH_TOKEN: abc123
